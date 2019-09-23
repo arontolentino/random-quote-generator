@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div class="quote-box">
+  <div id="app" v-bind:style="{ backgroundColor: color}">
+    <div class="quote-box" v-bind:style="{ color: color}">
       <div class="quote-text">
         <h1>
           <i class="fa fa-quote-left"></i>
@@ -11,16 +11,20 @@
         <h2>- {{ currentAuthor }}</h2>
       </div>
       <div class="buttons">
-        <div class="social-buttons">
-          <button class="button" @click="getRandomQuote">
+        <div class="social-buttons" v-bind:style="{ color: color}">
+          <button class="button" @click="getRandomQuote" v-bind:style="{ backgroundColor: color}">
             <i class="fa fa-twitter"></i>
           </button>
-          <button class="button" @click="getRandomQuote">
+          <button class="button" @click="getRandomQuote" v-bind:style="{ backgroundColor: color}">
             <i class="fa fa-tumblr"></i>
           </button>
         </div>
         <div class="new-button">
-          <button class="button" @click="getRandomQuote">New Quote</button>
+          <button
+            class="button"
+            @click="getRandomQuote"
+            v-bind:style="{ backgroundColor: color}"
+          >New Quote</button>
         </div>
       </div>
     </div>
@@ -37,13 +41,32 @@ export default {
       quotesData: null,
       randomQuote: null,
       currentQuote: null,
-      currentAuthor: null
+      currentAuthor: null,
+      color: null,
+      backgroundColors: [
+        "#16a085",
+        "#27ae60",
+        "#2c3e50",
+        "#f39c12",
+        "#e74c3c",
+        "#9b59b6",
+        "#FB6964",
+        "#342224",
+        "#472E32",
+        "#BDBB99",
+        "#77B1A9",
+        "#73A857"
+      ]
     };
   },
   methods: {
     getRandomQuote() {
       this.randomQuote = this.quotesData.data.quotes[
         Math.floor(Math.random() * this.quotesData.data.quotes.length)
+      ];
+
+      this.color = this.backgroundColors[
+        Math.floor(Math.random() * this.backgroundColors.length)
       ];
 
       this.currentQuote = this.randomQuote.quote;
@@ -99,11 +122,16 @@ body {
   background-color: orange;
   border-radius: 3px;
   border: none;
+  color: #fff;
 }
 
 .social-buttons button {
   width: 40px;
   margin-right: 5px;
   font-size: 1.2em;
+}
+
+.new-button button {
+  font-size: 0.9em;
 }
 </style>
